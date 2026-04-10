@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free salary calculators. Convert hourly pay to salary, salary to hourly, calculate pay raises, and estimate overtime earnings in seconds." />
+  <meta name="keywords" content="salary calculator, paycheck calculator, hourly to salary, salary to hourly, overtime calculator, pay raise calculator" />
+  <title>Salary Calculator Hub | Free Pay Tools</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --line: #dbe3ef;
+      --primary: #1d4ed8;
+      --primary-dark: #163ea9;
+      --soft: #eef4ff;
+      --success: #ecfdf3;
+      --success-line: #b7ebc6;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --radius: 20px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: #0f172a;
+      color: #e5eefc;
+      font-size: 0.92rem;
+      padding: 10px 0;
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 72px;
+    }
+
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    header {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb 45%, #3b82f6);
+      color: white;
+      padding: 44px 0 20px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 12px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.08;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 740px;
+      font-size: 1.05rem;
+      color: #edf4ff;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn, .btn-secondary {
+      display: inline-block;
+      padding: 13px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .btn {
+      background: white;
+      color: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 22px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-panel h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    .hero-panel ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .hero-panel li { margin-bottom: 8px; }
+
+    .ad-strip {
+      margin-top: 24px;
+      background: rgba(255,255,255,0.14);
+      border: 1px dashed rgba(255,255,255,0.35);
+      border-radius: 16px;
+      padding: 14px 16px;
+      text-align: center;
+      font-weight: 700;
+      color: #eef4ff;
+    }
+
+    main { padding: 32px 0 44px; }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 1.9rem;
+    }
+
+    .section-text {
+      margin: 0 0 24px;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.35rem;
+    }
+
+    .card p.sub {
+      margin-top: 0;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .field { margin-bottom: 14px; }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px 13px;
+      border-radius: 14px;
+      border: 1px solid #cfd8e6;
+      font-size: 1rem;
+      background: white;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #b8d1ff;
+      border-color: #4f83ff;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    button:hover { background: var(--primary-dark); }
+
+    .result {
+      margin-top: 18px;
+      background: var(--soft);
+      border: 1px solid #c8dafd;
+      border-radius: 16px;
+      padding: 15px;
+    }
+
+    .result h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: #1740a4;
+    }
+
+    .big {
+      font-size: 1.78rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .section-block {
+      margin-top: 28px;
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
+    }
+
+    .section-block h2 { margin-top: 0; }
+
+    .ad-box {
+      margin: 26px 0;
+      background: #fff;
+      border: 2px dashed #c8d5ea;
+      border-radius: 18px;
+      padding: 22px;
+      text-align: center;
+      color: #60708a;
+      font-weight: 700;
+    }
+
+    .seo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .seo-card {
+      background: #f8fbff;
+      border: 1px solid #dce8f8;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .tool-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .tool-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(29, 78, 216, 0.10);
+      border-color: #b9cff8;
+    }
+
+    .seo-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.06rem;
+    }
+
+    .faq-item {
+      border-top: 1px solid var(--line);
+      padding: 16px 0;
+    }
+
+    .faq-item:first-child { border-top: none; }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 800;
+      list-style: none;
+      position: relative;
+      padding-right: 26px;
+    }
+
+    details summary::-webkit-details-marker { display: none; }
+
+    details summary::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: -2px;
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    details[open] summary::after { content: "−"; }
+
+    details p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .keyword-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .keyword {
+      background: #eef4ff;
+      color: #21418d;
+      border: 1px solid #c9dafd;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 28px 0 42px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .grid, .row, .seo-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div>Free calculators for pay, salary, raises, and overtime</div>
+      <div>Simple tools for quick income calculations</div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand">Salary Hub</div>
+      <div class="nav-links">
+        <a href="#calculators">Calculators</a>
+        <a href="#guide">Guide</a>
+        <a href="#faq">FAQ</a>
+        <a href="#keywords">Categories</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="container hero">
+      <div>
+        <div class="eyebrow">Free Salary Tools</div>
+        <h1>Calculate salary, hourly pay, raises, and overtime in seconds</h1>
+        <p>
+          Use these free salary calculators to convert hourly wages into annual salary, turn salary into hourly pay, calculate pay raises, and estimate weekly overtime earnings.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#calculators">Start Calculating</a>
+          <a class="btn-secondary" href="#faq">View FAQs</a>
+        </div>
+        <div class="ad-strip">Ad Space</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section id="calculators">
+        <h2 class="section-title">Salary Calculators</h2>
+        <p class="section-text">
+          Convert income, calculate raises, and estimate overtime quickly using the tools below.
+        </p>
+
+        <div class="grid">
+          <section class="card">
+            <h2>Hourly to Salary Calculator</h2>
+            <p class="sub">Convert hourly wages into weekly, monthly, and annual income.</p>
+
+            <div class="field">
+              <label for="hourlyRate">Hourly Rate ($)</label>
+              <input type="number" id="hourlyRate" placeholder="Example: 20" min="0" step="0.01" />
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="hoursPerWeek">Hours per Week</label>
+                <input type="number" id="hoursPerWeek" value="40" min="1" step="0.1" />
+              </div>
+              <div class="field">
+                <label for="weeksPerYear">Weeks per Year</label>
+                <input type="number" id="weeksPerYear" value="52" min="1" step="1" />
+              </div>
+            </div>
+
+            <button onclick="calculateHourlyToSalary()">Calculate</button>
+
+            <div class="result" id="hourlyResult">
+              <h3>Results</h3>
+              <div class="big">$0.00 / year</div>
+              <div class="muted">Weekly: $0.00</div>
+              <div class="muted">Monthly: $0.00</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Salary to Hourly Calculator</h2>
+            <p class="sub">Turn annual salary into hourly, weekly, and monthly earnings.</p>
+
+            <div class="field">
+              <label for="annualSalary">Annual Salary ($)</label>
+              <input type="number" id="annualSalary" placeholder="Example: 55000" min="0" step="0.01" />
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="salaryHoursPerWeek">Hours per Week</label>
+                <input type="number" id="salaryHoursPerWeek" value="40" min="1" step="0.1" />
+              </div>
+              <div class="field">
+                <label for="salaryWeeksPerYear">Weeks per Year</label>
+                <input type="number" id="salaryWeeksPerYear" value="52" min="1" step="1" />
+              </div>
+            </div>
+
+            <button onclick="calculateSalaryToHourly()">Calculate</button>
+
+            <div class="result" id="salaryResult">
+              <h3>Results</h3>
+              <div class="big">$0.00 / hour</div>
+              <div class="muted">Weekly: $0.00</div>
+              <div class="muted">Monthly: $0.00</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Pay Raise Calculator</h2>
+            <p class="sub">Estimate how a raise changes your hourly pay, weekly income, monthly income, and annual earnings.</p>
+
+            <div class="field">
+              <label for="currentPay">Current Hourly Rate ($)</label>
+              <input type="number" id="currentPay" placeholder="Example: 20" min="0" step="0.01" />
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="raiseType">Raise Type</label>
+                <select id="raiseType">
+                  <option value="percent">Percent Raise (%)</option>
+                  <option value="amount">Dollar Raise ($ per hour)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="raiseValue">Raise Value</label>
+                <input type="number" id="raiseValue" value="5" min="0" step="0.01" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="raiseHoursPerWeek">Hours per Week</label>
+                <input type="number" id="raiseHoursPerWeek" value="40" min="1" step="0.1" />
+              </div>
+              <div class="field">
+                <label for="raiseWeeksPerYear">Weeks per Year</label>
+                <input type="number" id="raiseWeeksPerYear" value="52" min="1" step="1" />
+              </div>
+            </div>
+
+            <button onclick="calculatePayRaise()">Calculate</button>
+
+            <div class="result" id="raiseResult">
+              <h3>Pay Raise Results</h3>
+              <div class="big">New Rate: $0.00 / hour</div>
+              <div class="muted">Weekly Increase: $0.00</div>
+              <div class="muted">Monthly Increase: $0.00</div>
+              <div class="muted">Annual Increase: $0.00</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Overtime Pay Calculator</h2>
+            <p class="sub">Calculate weekly pay using regular hours, overtime paid at 1.5 times, and double time paid at 2 times.</p>
+
+            <div class="field">
+              <label for="otHourlyRate">Base Hourly Rate ($)</label>
+              <input type="number" id="otHourlyRate" placeholder="Example: 18" min="0" step="0.01" />
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="regularHours">Regular Hours</label>
+                <input type="number" id="regularHours" value="40" min="0" step="0.1" />
+              </div>
+              <div class="field">
+                <label for="overtimeHours">Overtime Hours (1.5x)</label>
+                <input type="number" id="overtimeHours" value="5" min="0" step="0.1" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="doubleTimeHours">Double-Time Hours (2x)</label>
+              <input type="number" id="doubleTimeHours" value="0" min="0" step="0.1" />
+            </div>
+
+            <button onclick="calculateOvertime()">Calculate</button>
+
+            <div class="result" id="otResult">
+              <h3>Weekly Earnings</h3>
+              <div class="big">$0.00</div>
+              <div class="muted">Regular pay: $0.00</div>
+              <div class="muted">Overtime pay: $0.00</div>
+              <div class="muted">Double-time pay: $0.00</div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <div class="ad-box">Ad Space</div>
+      <div class="ad-box">Ad Space</div>
+
+      <section id="guide" class="section-block">
+        <h2>Understanding pay, salary, raises, and overtime</h2>
+        <p>
+          A full-time work year is often estimated at <strong>2,080 hours</strong>, which comes from 40 hours per week for 52 weeks. That is why salary and hourly conversions often use 2,080 as the baseline. For example, if you earn $20 per hour and work 40 hours each week for 52 weeks, your estimated annual pay is $41,600 before taxes.
+        </p>
+        <p>
+          A pay raise calculator compares your current hourly rate with your new hourly rate, then multiplies the difference by your hours per week and weeks worked per year. Monthly increase is based on the annual increase divided by 12, so it shows the average monthly gain over a full year.
+        </p>
+        <p>
+          Overtime is commonly calculated at 1.5 times the regular hourly rate, while double time is 2 times the regular rate. These formulas give a quick weekly estimate based on extra hours only, not total weekly hours.
+        </p>
+
+        <div class="seo-grid">
+          <div class="seo-card">
+            <h3>Hourly to salary example</h3>
+            <p>
+              $25 per hour × 40 hours per week = $1,000 per week. Over 52 weeks, that equals <strong>$52,000 per year</strong>. Monthly, that comes out to about <strong>$4,333.33</strong> before taxes.
+            </p>
+          </div>
+          <div class="seo-card">
+            <h3>Salary to hourly example</h3>
+            <p>
+              A salary of $60,000 divided by 2,080 hours equals about <strong>$28.85 per hour</strong>. Weekly, that is about <strong>$1,153.85</strong> before taxes.
+            </p>
+          </div>
+          <div class="seo-card">
+            <h3>Pay raise example</h3>
+            <p>
+              If your hourly rate increases from $20 to $22 and you work 40 hours per week for 52 weeks, your pay increases by <strong>$80 per week</strong>, about <strong>$346.67 per month</strong>, and <strong>$4,160 per year</strong>.
+            </p>
+          </div>
+          <div class="seo-card">
+            <h3>Overtime example</h3>
+            <p>
+              If you earn $20 per hour, work 40 regular hours, 5 overtime hours, and 2 double-time hours, your weekly pay is <strong>$1,030</strong>. That includes $800 regular pay, $150 overtime pay, and $80 double-time pay.
+            </p>
+          </div>
+        </div>
+      </section>
+      <div class="ad-box">Ad Space</div>
+      <section id="faq" class="section-block">
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-item">
+          <details>
+            <summary>How do I convert hourly pay to yearly salary?</summary>
+            <p>
+              Multiply your hourly rate by the number of hours you work per week, then multiply that by the number of weeks you work per year. A common example is 40 hours per week and 52 weeks per year.
+            </p>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>How do I convert salary to hourly pay?</summary>
+            <p>
+              Divide your annual salary by the total number of hours worked in a year. For many full-time workers, that means dividing by 2,080 hours, which is 40 hours per week for 52 weeks.
+            </p>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>How is a pay raise calculated?</summary>
+            <p>
+              A pay raise calculator compares your current hourly rate with your new hourly rate. It then multiplies the difference by your hours per week and weeks per year to estimate your weekly, monthly, and annual increase.
+            </p>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>How is overtime pay usually calculated?</summary>
+            <p>
+              In many jobs, overtime is paid at 1.5 times the regular hourly rate, while double time is paid at 2 times the regular rate. Rules can vary by employer and location.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section id="keywords" class="section-block">
+        <h2>Explore more calculators</h2>
+        <p>
+          Browse additional tools for budgeting, housing, debt, and long-term financial planning.
+        </p>
+        <div class="seo-grid">
+          <a class="seo-card tool-link" href="paycheck-calculator.html">
+            <h3>Paycheck Calculator</h3>
+            <p>Estimate paycheck amounts by pay frequency, taxes, and other deductions.</p>
+          </a>
+          <a class="seo-card tool-link" href="budget-calculator.html">
+            <h3>Budget Calculator</h3>
+            <p>Compare income with expenses and estimate how much money is left each month.</p>
+          </a>
+          <a class="seo-card tool-link" href="debt-payoff-calculator.html">
+            <h3>Debt Payoff Calculator</h3>
+            <p>See how long it may take to pay off debt based on monthly payments and interest.</p>
+          </a>
+          <a class="seo-card tool-link" href="rent-affordability-calculator.html">
+            <h3>Rent Affordability Calculator</h3>
+            <p>Estimate how much rent may fit your income and monthly budget.</p>
+          </a>
+          <a class="seo-card tool-link" href="annual-bonus-calculator.html">
+            <h3>Compound Interest Calculator</h3>
+            <p>Calculate long-term savings growth.</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div class="ad-box">Ad Space</div>
+  <footer>
+  <div class="container footer-grid">
+    <div>
+      <strong>Salary Calculator Hub</strong><br />
+      Quick tools for pay conversions, raises, and overtime.
+    </div>
+    <div>
+      Explore calculators for income, budgeting, housing, debt, and savings.
+    </div>
+  </div>
+</footer>
+
+  <script>
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(Number(value) || 0);
+    }
+
+    function calculateHourlyToSalary() {
+      const hourlyRate = parseFloat(document.getElementById('hourlyRate')?.value) || 0;
+      const hoursPerWeek = parseFloat(document.getElementById('hoursPerWeek')?.value) || 0;
+      const weeksPerYear = parseFloat(document.getElementById('weeksPerYear')?.value) || 0;
+
+      const weekly = hourlyRate * hoursPerWeek;
+      const yearly = weekly * weeksPerYear;
+      const monthly = yearly / 12;
+
+      document.getElementById('hourlyResult').innerHTML = `
+        <h3>Results</h3>
+        <div class="big">${formatCurrency(yearly)} / year</div>
+        <div class="muted">Weekly: ${formatCurrency(weekly)}</div>
+        <div class="muted">Monthly: ${formatCurrency(monthly)}</div>
+      `;
+    }
+
+    function calculateSalaryToHourly() {
+      const annualSalary = parseFloat(document.getElementById('annualSalary')?.value) || 0;
+      const hoursPerWeek = parseFloat(document.getElementById('salaryHoursPerWeek')?.value) || 0;
+      const weeksPerYear = parseFloat(document.getElementById('salaryWeeksPerYear')?.value) || 0;
+
+      const totalHours = hoursPerWeek * weeksPerYear;
+      const hourly = totalHours > 0 ? annualSalary / totalHours : 0;
+      const weekly = weeksPerYear > 0 ? annualSalary / weeksPerYear : 0;
+      const monthly = annualSalary / 12;
+
+      document.getElementById('salaryResult').innerHTML = `
+        <h3>Results</h3>
+        <div class="big">${formatCurrency(hourly)} / hour</div>
+        <div class="muted">Weekly: ${formatCurrency(weekly)}</div>
+        <div class="muted">Monthly: ${formatCurrency(monthly)}</div>
+      `;
+    }
+
+    function calculatePayRaise() {
+      const currentPay = parseFloat(document.getElementById('currentPay')?.value) || 0;
+      const raiseType = document.getElementById('raiseType')?.value || 'percent';
+      const raiseValue = parseFloat(document.getElementById('raiseValue')?.value) || 0;
+      const hoursPerWeek = parseFloat(document.getElementById('raiseHoursPerWeek')?.value) || 0;
+      const weeksPerYear = parseFloat(document.getElementById('raiseWeeksPerYear')?.value) || 0;
+
+      let newRate = currentPay;
+      if (raiseType === 'percent') {
+        newRate = currentPay * (1 + raiseValue / 100);
+      } else {
+        newRate = currentPay + raiseValue;
+      }
+
+      const hourlyIncrease = Math.max(0, newRate - currentPay);
+      const weeklyIncrease = hourlyIncrease * hoursPerWeek;
+      const annualIncrease = weeklyIncrease * weeksPerYear;
+      const monthlyIncrease = annualIncrease / 12;
+
+      document.getElementById('raiseResult').innerHTML = `
+        <h3>Pay Raise Results</h3>
+        <div class="big">New Rate: ${formatCurrency(newRate)} / hour</div>
+        <div class="muted">Weekly Increase: ${formatCurrency(weeklyIncrease)}</div>
+        <div class="muted">Monthly Increase: ${formatCurrency(monthlyIncrease)}</div>
+        <div class="muted">Annual Increase: ${formatCurrency(annualIncrease)}</div>
+      `;
+    }
+
+    function calculateOvertime() {
+      const rate = parseFloat(document.getElementById('otHourlyRate')?.value) || 0;
+      const regularHours = parseFloat(document.getElementById('regularHours')?.value) || 0;
+      const overtimeHours = parseFloat(document.getElementById('overtimeHours')?.value) || 0;
+      const doubleTimeHours = parseFloat(document.getElementById('doubleTimeHours')?.value) || 0;
+
+      const regularPay = rate * regularHours;
+      const overtimePay = rate * 1.5 * overtimeHours;
+      const doubleTimePay = rate * 2 * doubleTimeHours;
+      const total = regularPay + overtimePay + doubleTimePay;
+
+      document.getElementById('otResult').innerHTML = `
+        <h3>Weekly Earnings</h3>
+        <div class="big">${formatCurrency(total)}</div>
+        <div class="muted">Regular pay: ${formatCurrency(regularPay)}</div>
+        <div class="muted">Overtime pay: ${formatCurrency(overtimePay)}</div>
+        <div class="muted">Double-time pay: ${formatCurrency(doubleTimePay)}</div>
+      `;
+    }
+  </script>
+</body>
+</html>
+
+
+
